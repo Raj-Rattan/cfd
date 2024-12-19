@@ -39,7 +39,9 @@ print(f"After SMOTEENN, class distribution:\n{pd.Series(y_res).value_counts()}")
 # 4. Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X_res, y_res, test_size=0.2, random_state=42)
 
-
+# Reshape data for LSTM: LSTM expects input in 3D format (samples, time-steps, features)
+X_train = np.reshape(X_train.values, (X_train.shape[0], 1, X_train.shape[1]))
+X_test = np.reshape(X_test.values, (X_test.shape[0], 1, X_test.shape[1]))
 
 # 5. Build the LSTM Model
 model = Sequential()
